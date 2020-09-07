@@ -23,5 +23,12 @@ function insertInto($pdo, $title) {
       $stmt= $pdo->prepare($sql);
       $stmt->execute();
     break;
+    case 'sqlsrv':
+      $sql = vsprintf("INSERT INTO [dbo].[posts] ([title]) VALUES ('%s');", [
+        addslashes($title),
+      ]);
+      $stmt= $pdo->prepare($sql);
+      $stmt->execute();
+    break;
   }
 }

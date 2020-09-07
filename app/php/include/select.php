@@ -18,6 +18,11 @@ function getList($pdo) {
       $stmt->execute();
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     break;
+    case 'sqlsrv':
+      $stmt = $pdo->query("SELECT * FROM [dbo].[posts] ORDER BY [id] DESC");
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    break;
   }
 
   return [

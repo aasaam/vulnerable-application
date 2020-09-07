@@ -9,6 +9,7 @@ require_once './include/all.php';
 $mysql = getMySQLPDOObject();
 $pgsql = getPGSQLPDOObject();
 $sqlite = getSQLitePDOObject();
+$mssql = getMsSQLPDOObject();
 
 dummyData($mysql);
 
@@ -30,6 +31,10 @@ if (isset($_POST['file-upload'])) {
       break;
     case 'pgsql':
       insertInto($pgsql, $_POST['title']);
+      goToHome();
+      break;
+    case 'sqlsrv':
+      insertInto($mssql, $_POST['title']);
       goToHome();
       break;
     default:
@@ -163,6 +168,55 @@ if (isset($_POST['file-upload'])) {
       </div>
     </div>
     <div class="columns">
+      <div class="column">
+        <article class="panel is-primary">
+          <?php $result = getList($mssql); ?>
+          <p class="panel-heading">
+            MSSQL
+          </p>
+          <div class="panel-block">
+            <form class="form" action="" method="POST">
+              <div class="field is-grouped">
+                <p class="control is-expanded">
+                  <input class="input" name="title" type="text" placeholder="Type new title here">
+                  <input type="hidden" name="type" value="<?php echo $result['type']; ?>">
+                </p>
+                <p class="control">
+                  <input type="submit" class="button is-info" value="Save">
+                </p>
+              </div>
+            </form>
+          </div>
+          <div class="panel-block">
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($result['rows'] as $row) :
+                ?>
+                  <tr>
+                    <td>
+
+                      <?php echo $row['id']; ?>
+
+                    </td>
+                    <td>
+                      <a href="/show.php?id=<?php echo $row['id']; ?>&type=<?php echo $result['type']; ?>&title=<?php echo urlencode($row['title']); ?>">
+                        <?php echo $row['title']; ?>
+                      </a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
       <div class="column">
         <article class="panel is-primary">
           <?php $result = getList($mysql); ?>

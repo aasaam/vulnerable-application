@@ -18,6 +18,11 @@ function getOne($pdo, $id) {
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
     break;
+    case 'sqlsrv':
+      $stmt = $pdo->query("SELECT * FROM [dbo].[posts] WHERE [id] = " . $id);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    break;
   }
 
   return $result;

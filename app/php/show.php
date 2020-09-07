@@ -9,6 +9,7 @@ require_once './include/all.php';
 $mysql = getMySQLPDOObject();
 $pgsql = getPGSQLPDOObject();
 $sqlite = getSQLitePDOObject();
+$mssql = getMsSQLPDOObject();
 
 $postData = [];
 
@@ -21,6 +22,9 @@ switch ($_GET['type']) {
     break;
   case 'pgsql':
     $postData = getOne($pgsql, $_GET['id']);
+    break;
+  case 'sqlsrv':
+    $postData = getOne($mssql, $_GET['id']);
     break;
   default:
     echo "Invalid";
