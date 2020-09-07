@@ -168,7 +168,7 @@ if (isset($_POST['file-upload'])) {
       </div>
     </div>
     <div class="columns">
-      <div class="column">
+      <div class="column is-half">
         <article class="panel is-primary">
           <?php $result = getList($mssql); ?>
           <p class="panel-heading">
@@ -217,7 +217,7 @@ if (isset($_POST['file-upload'])) {
           </div>
         </article>
       </div>
-      <div class="column">
+      <div class="column is-half">
         <article class="panel is-primary">
           <?php $result = getList($mysql); ?>
           <p class="panel-heading">
@@ -266,7 +266,9 @@ if (isset($_POST['file-upload'])) {
           </div>
         </article>
       </div>
-      <div class="column">
+    </div>
+    <div class="columns">
+      <div class="column is-half">
         <article class="panel is-primary">
           <?php $result = getList($sqlite); ?>
           <p class="panel-heading">
@@ -315,7 +317,7 @@ if (isset($_POST['file-upload'])) {
           </div>
         </article>
       </div>
-      <div class="column">
+      <div class="column is-half">
         <article class="panel is-primary">
           <?php $result = getList($pgsql); ?>
           <p class="panel-heading">
