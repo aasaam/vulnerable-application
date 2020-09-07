@@ -19,3 +19,11 @@ git clone --depth 1 https://github.com/s0md3v/XSStrike.git tmp/XSStrike
 cd tmp/XSStrike
 python3 xsstrike.py -u 'http://localhost:21900/show.php?id=3&type=mysql&title=Aliquam+eget+leo+faucibus%2C+accumsan+nunc+id%2C+interdum+nisl.'
 ```
+
+## Notice
+
+Use adminer to create database for MSSQL.
+
+```txt
+http://localhost:21901
+```
