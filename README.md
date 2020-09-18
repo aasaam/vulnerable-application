@@ -2,6 +2,8 @@
 
 [![aasaam](https://flat.badgen.net/badge/aasaam/software%20development%20group/0277bd?labelColor=000000&icon=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Faasaam%2Finformation%2Flogo%2Faasaam.svg)](https://github.com/aasaam)
 
+[![docker-repository-on-quay](https://flat.badgen.net/badge/quay.io/repo/cyan)](https://quay.io/repository/aasaam/vulnerable-application)
+
 This is the simple vulnerable application for testing using [sqlmap](https://github.com/sqlmapproject/sqlmap) and [XSStrike](https://github.com/s0md3v/XSStrike) for testing the WAF rules and protection mechanism.
 
 ## SQL Injection check
