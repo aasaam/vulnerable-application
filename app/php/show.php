@@ -53,7 +53,7 @@ switch ($_GET['type']) {
     <div class="columns">
       <div class="column content">
         <h3>Identifier: <code><?php echo $postData['id']; ?></code> from <code><?php echo $_GET['type']; ?></code></h3>
-        <h1><?php echo $postData['title']; ?></h1>
+        <h1><?php echo $_GET['title']; ?></h1>
       </div>
     </div>
   </div>
