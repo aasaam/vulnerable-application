@@ -1,7 +1,13 @@
 <?php
 
 function getMsSQLPDOObject() {
+  // db
+  try {
+    $pdo = new PDO("sqlsrv:Server=mssql", "sa", getenv("SA_PASSWORD"));
+    $pdo->exec("CREATE DATABASE dummy;");
+  } catch (Exception $e) {}
 
+  // table
   $createTableQuery = "
   IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='posts' and xtype='U')
     CREATE TABLE posts (

@@ -27,6 +27,6 @@ function getList($pdo) {
 
   return [
     'rows' => $result,
-    'type' => $pdo->getAttribute(PDO::ATTR_DRIVER_NAME),
+    'type' => base64_encode($pdo->getAttribute(PDO::ATTR_DRIVER_NAME)),
   ];
 }

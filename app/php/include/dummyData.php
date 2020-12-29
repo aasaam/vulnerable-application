@@ -2,9 +2,8 @@
 
 function dummyData($mysql) {
   $data = [
-    1 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    2 => 'Nullam sem mi, fermentum et neque id, ullamcorper maximus enim.',
-    3 => 'Aliquam eget leo faucibus, accumsan nunc id, interdum nisl.',
+    1 => 'The Fellowship of the Ring is the first of three volumes of the epic novel The Lord of the Rings.',
+    2 => 'The Matrix is a 1999 American science fiction action film written and directed by the Wachowskis.',
   ];
 
   foreach ($data as $id => $title) {

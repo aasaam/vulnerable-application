@@ -13,7 +13,9 @@ $mssql = getMsSQLPDOObject();
 
 $postData = [];
 
-switch ($_GET['type']) {
+$dbType = base64_decode($_GET['type']);
+
+switch ($dbType) {
   case 'mysql':
     $postData = getOne($mysql, $_GET['id']);
     break;
@@ -37,7 +39,7 @@ switch ($_GET['type']) {
 
 <head>
   <meta charset="utf-8">
-  <title><?php echo $_GET['title']; ?> | <?php echo $_GET['type']; ?> | <?php echo States::get("title", APP_TITLE); ?></title>
+  <title><?php echo $_GET['title']; ?> | <?php echo $dbType; ?> | <?php echo States::get("title", APP_TITLE); ?></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/bulma.css">
@@ -52,7 +54,7 @@ switch ($_GET['type']) {
   <div class="container is-fluid">
     <div class="columns">
       <div class="column content">
-        <h3>Identifier: <code><?php echo $postData['id']; ?></code> from <code><?php echo $_GET['type']; ?></code></h3>
+        <h3>Identifier: <code><?php echo $postData['id']; ?></code> from <code><?php echo $dbType; ?></code></h3>
         <h1><?php echo $_GET['title']; ?></h1>
       </div>
     </div>
