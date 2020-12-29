@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:8-fpm
 
 ARG BUILD_OCI_PATH=/opt/oracle
 
