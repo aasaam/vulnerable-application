@@ -23,19 +23,26 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
                pdo_oci \
        && echo "oci success build" \
        && docker-php-ext-enable \
-               oci8-2.2.0 \
+               oci8 \
   && echo "PHPINFO: OCI" \
   && php -i | grep oci \
   # msssql
   && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
   && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
   && apt-get update -y \
-  && apt-get install msodbcsql17 mssql-tools unixodbc-dev -y \
+  && apt-get install msodbcsql17 mssql-tools unixodbc unixodbc-dev -y \
   && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql \
   && pecl install sqlsrv pdo_sqlsrv \
   && docker-php-ext-enable sqlsrv pdo_sqlsrv \
   && echo "PHPINFO: SQLSRV" \
   && php -i | grep sqlsrv \
+  # odbc
+  && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixodbc,/usr \
+  && docker-php-ext-install pdo_odbc \
+  && docker-php-ext-enable pdo_odbc \
+  && echo "==== PHPINFO: ALL ====" \
+  && php -i \
+  && echo "======================" \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /root/.cache && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log
