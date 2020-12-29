@@ -17,6 +17,8 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
   && ln -s $BUILD_OCI_FULL_PATH/libclntsh.so.12.* $BUILD_OCI_FULL_PATH/libclntsh.so \
   && ln -s $BUILD_OCI_FULL_PATH/libclntshcore.so.12.* $BUILD_OCI_FULL_PATH/libclntshcore.so \
   && ln -s $BUILD_OCI_FULL_PATH/libocci.so.12.* $BUILD_OCI_FULL_PATH/libocci.so \
+  && echo "$BUILD_OCI_FULL_PATH/" > /etc/ld.so.conf.d/oracle-insantclient.conf \
+  && ldconfig \
   && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$BUILD_OCI_FULL_PATH,12.2 \
        && echo "instantclient,$BUILD_OCI_FULL_PATH/" | pecl install oci8-2.2.0 \
        && docker-php-ext-install \
