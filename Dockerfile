@@ -1,4 +1,4 @@
-FROM php:8-fpm
+FROM php:7-fpm
 
 ARG BUILD_OCI_PATH=/opt/oracle
 ARG BUILD_OCI_FULL_PATH=/opt/oracle/instantclient_12_2
@@ -18,11 +18,14 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
   && ln -s $BUILD_OCI_FULL_PATH/libclntshcore.so.12.* $BUILD_OCI_FULL_PATH/libclntshcore.so \
   && ln -s $BUILD_OCI_FULL_PATH/libocci.so.12.* $BUILD_OCI_FULL_PATH/libocci.so \
   && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$BUILD_OCI_FULL_PATH,12.2 \
-       && echo "instantclient,$BUILD_OCI_FULL_PATH/" | pecl install oci8 \
+       && echo "instantclient,$BUILD_OCI_FULL_PATH/" | pecl install oci8-2.2.0 \
        && docker-php-ext-install \
                pdo_oci \
+       && echo "oci success build" \
        && docker-php-ext-enable \
-               oci8 \
+               oci8-2.2.0 \
+  && echo "PHPINFO: OCI" \
+  && php -i | grep oci \
   # msssql
   && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
   && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
@@ -31,6 +34,8 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
   && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql \
   && pecl install sqlsrv pdo_sqlsrv \
   && docker-php-ext-enable sqlsrv pdo_sqlsrv \
+  && echo "PHPINFO: SQLSRV" \
+  && php -i | grep sqlsrv \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /root/.cache && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log
