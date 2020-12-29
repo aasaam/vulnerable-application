@@ -1,6 +1,7 @@
 FROM php:8-fpm
 
 ARG BUILD_OCI_PATH=/opt/oracle
+ARG BUILD_OCI_FULL_PATH=/opt/oracle/instantclient_12_2
 
 RUN export DEBIAN_FRONTEND=noninteractiv \
   && export ACCEPT_EULA=Y \
@@ -13,11 +14,11 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
   && wget -c -O instantclient-sdk.zip https://github.com/pwnlabs/oracle-instantclient/raw/master/instantclient-sdk-linux-12.2.0.1.0.zip \
   && unzip instantclient.zip -d $BUILD_OCI_PATH \
   && unzip instantclient-sdk.zip -d $BUILD_OCI_PATH \
-  && ln -s $BUILD_OCI_PATH/instantclient_12_2/libclntsh.so.12.* $BUILD_OCI_PATH/instantclient_12_2/libclntsh.so \
-  && ln -s $BUILD_OCI_PATH/instantclient_12_2/libclntshcore.so.12.* $BUILD_OCI_PATH/instantclient_12_2/libclntshcore.so \
-  && ln -s $BUILD_OCI_PATH/instantclient_12_2/libocci.so.12.* $BUILD_OCI_PATH/instantclient_12_2/libocci.so \
-  && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$BUILD_OCI_PATH/instantclient_12_2,12.2 \
-       && echo "instantclient,$BUILD_OCI_PATH/instantclient_12_2/" | pecl install oci8 \
+  && ln -s $BUILD_OCI_FULL_PATH/libclntsh.so.12.* $BUILD_OCI_FULL_PATH/libclntsh.so \
+  && ln -s $BUILD_OCI_FULL_PATH/libclntshcore.so.12.* $BUILD_OCI_FULL_PATH/libclntshcore.so \
+  && ln -s $BUILD_OCI_FULL_PATH/libocci.so.12.* $BUILD_OCI_FULL_PATH/libocci.so \
+  && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$BUILD_OCI_FULL_PATH,12.2 \
+       && echo "instantclient,$BUILD_OCI_FULL_PATH/" | pecl install oci8 \
        && docker-php-ext-install \
                pdo_oci \
        && docker-php-ext-enable \
