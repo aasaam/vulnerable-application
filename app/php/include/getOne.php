@@ -8,6 +8,11 @@ function getOne($pdo, $id) {
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
     break;
+    case 'oci':
+      $stmt = $pdo->query("SELECT * FROM posts WHERE id = " . $id);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    break;
     case 'sqlite':
       $stmt = $pdo->query("SELECT * FROM posts WHERE id = " . $id);
       $stmt->execute();

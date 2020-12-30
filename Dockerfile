@@ -18,6 +18,7 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
   && ln -s $BUILD_OCI_FULL_PATH/libclntshcore.so.12.* $BUILD_OCI_FULL_PATH/libclntshcore.so \
   && ln -s $BUILD_OCI_FULL_PATH/libocci.so.12.* $BUILD_OCI_FULL_PATH/libocci.so \
   && echo "$BUILD_OCI_FULL_PATH/" > /etc/ld.so.conf.d/oracle-insantclient.conf \
+  && echo "/opt/microsoft/msodbcsql17/lib64/" > /etc/ld.so.conf.d/msodbcsql17.conf \
   && ldconfig \
   && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$BUILD_OCI_FULL_PATH,12.2 \
        && echo "instantclient,$BUILD_OCI_FULL_PATH/" | pecl install oci8-2.2.0 \
@@ -38,10 +39,6 @@ RUN export DEBIAN_FRONTEND=noninteractiv \
   && docker-php-ext-enable sqlsrv pdo_sqlsrv \
   && echo "PHPINFO: SQLSRV" \
   && php -i | grep sqlsrv \
-  # odbc
-  && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixodbc,/usr \
-  && docker-php-ext-install pdo_odbc \
-  && docker-php-ext-enable pdo_odbc \
   && echo "==== PHPINFO: ALL ====" \
   && php -i \
   && echo "======================" \

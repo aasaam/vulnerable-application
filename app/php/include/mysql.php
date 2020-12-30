@@ -4,7 +4,7 @@ function getMySQLPDOObject() {
 
   $createTableQuery = "
     CREATE TABLE IF NOT EXISTS `posts` (
-      `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT ,
+      `id` INT(11) UNSIGNED NOT NULL ,
       `title` VARCHAR(255) NOT NULL ,
       PRIMARY KEY (`id`)
     )

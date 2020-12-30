@@ -4,7 +4,7 @@ function getPGSQLPDOObject() {
 
   $createTableQuery = "
     CREATE TABLE IF NOT EXISTS posts (
-      id SERIAL,
+      id INT NOT NULL,
       title VARCHAR(255) NOT NULL,
       PRIMARY KEY(id)
     );
@@ -16,6 +16,7 @@ function getPGSQLPDOObject() {
     getenv("POSTGRES_PASSWORD"),
   ]));
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  // $pdo->query("DROP TABLE posts");
   $pdo->query($createTableQuery);
   return $pdo;
 }

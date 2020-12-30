@@ -10,6 +10,7 @@ $mysql = getMySQLPDOObject();
 $pgsql = getPGSQLPDOObject();
 $sqlite = getSQLitePDOObject();
 $mssql = getMsSQLPDOObject();
+$oracle = getOraclePDOObject();
 
 $postData = [];
 
@@ -28,8 +29,11 @@ switch ($dbType) {
   case 'sqlsrv':
     $postData = getOne($mssql, $_GET['id']);
     break;
+  case 'oci':
+    $postData = getOne($oracle, $_GET['id']);
+    break;
   default:
-    echo "Invalid";
+    echo $_GET['type'];
     die;
 }
 
@@ -39,7 +43,7 @@ switch ($dbType) {
 
 <head>
   <meta charset="utf-8">
-  <title><?php echo $_GET['title']; ?> | <?php echo $dbType; ?> | <?php echo States::get("title", APP_TITLE); ?></title>
+  <title><?php echo $_GET['title']; ?> | <?php echo States::get("title", APP_TITLE); ?></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/bulma.css">
@@ -54,11 +58,18 @@ switch ($dbType) {
   <div class="container is-fluid">
     <div class="columns">
       <div class="column content">
-        <h3>Identifier: <code><?php echo $postData['id']; ?></code> from <code><?php echo $dbType; ?></code></h3>
+        <h3>Identifier: <code><?php echo $_GET['id']; ?></code> from <code data-decode-me="<?php echo $_GET['type']; ?>">ENCODED</code></h3>
         <h1><?php echo $_GET['title']; ?></h1>
       </div>
     </div>
   </div>
+  <script>
+    window.setTimeout(function() {
+      document.querySelectorAll('[data-decode-me]').forEach((e) => {
+        e.innerHTML = window.atob(e.getAttribute('data-decode-me'));
+      });
+    }, 1000);
+  </script>
 </body>
 
 </html>

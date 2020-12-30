@@ -24,7 +24,18 @@ services:
     image: adminer
     restart: unless-stopped
     ports:
-      - 21901:8080
+      - 10803:8080
+    networks:
+      - app-network
+
+  aasaam-web-server:
+    image: aasaam/web-server
+    restart: unless-stopped
+    volumes:
+      - ./addon:/usr/local/openresty/nginx/addon:ro
+    ports:
+      - 10801:80
+      - 10802:443
     networks:
       - app-network
 
@@ -35,7 +46,7 @@ services:
       - ./app/php:/app/php:ro
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - 21900:8080
+      - 10800:8080
     networks:
       - app-network
 
@@ -66,6 +77,14 @@ services:
     environment:
       ACCEPT_EULA: 'Y'
       SA_PASSWORD: ${SA_PASSWORD}
+    networks:
+      - app-network
+
+  oracle:
+    image: wnameless/oracle-xe-11g-r2
+    restart: unless-stopped
+    environment:
+      ORACLE_ALLOW_REMOTE: 'true'
     networks:
       - app-network
 

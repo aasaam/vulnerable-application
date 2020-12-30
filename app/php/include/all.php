@@ -9,6 +9,7 @@ function goToHome() {
 
 require_once __DIR__ . '/States.php';
 require_once __DIR__ . '/mysql.php';
+require_once __DIR__ . '/oracle.php';
 require_once __DIR__ . '/mssql.php';
 require_once __DIR__ . '/postgres.php';
 require_once __DIR__ . '/save.php';

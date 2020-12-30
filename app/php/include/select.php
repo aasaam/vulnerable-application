@@ -23,6 +23,11 @@ function getList($pdo) {
       $stmt->execute();
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     break;
+    case 'oci':
+      $stmt = $pdo->query("SELECT * FROM posts ORDER BY id DESC");
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    break;
   }
 
   return [
