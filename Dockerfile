@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7-buster
 
 ARG BUILD_OCI_PATH=/opt/oracle
 ARG BUILD_OCI_FULL_PATH=/opt/oracle/instantclient_12_2
