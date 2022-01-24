@@ -21,28 +21,22 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASS }}
           repository: aasaam/vulnerable-application
-
       -
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASS }}
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: aasaam/vulnerable-application:latest
 
       - name: Push to github registry
         run: |
+          docker build -t aasaam/vulnerable-application .
           docker tag aasaam/vulnerable-application ghcr.io/aasaam/vulnerable-application:latest
           docker push ghcr.io/aasaam/vulnerable-application:latest
