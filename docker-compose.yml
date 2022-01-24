@@ -3,7 +3,7 @@ version: '3'
 services:
 
   php:
-    image: aasaam/vulnerable-application
+    image: ghcr.io/aasaam/vulnerable-application:latest
     restart: unless-stopped
     working_dir: /app/php
     volumes:
