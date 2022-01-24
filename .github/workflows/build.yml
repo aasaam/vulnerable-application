@@ -35,8 +35,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push to github registry
+      - name: Push to registry
         run: |
           docker build -t aasaam/vulnerable-application .
+          docker push aasaam/vulnerable-application
           docker tag aasaam/vulnerable-application ghcr.io/aasaam/vulnerable-application:latest
           docker push ghcr.io/aasaam/vulnerable-application:latest
