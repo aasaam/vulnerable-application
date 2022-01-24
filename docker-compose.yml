@@ -3,7 +3,7 @@ version: '3'
 services:
 
   php:
-    image: quay.io/aasaam/vulnerable-application
+    image: aasaam/vulnerable-application
     restart: unless-stopped
     working_dir: /app/php
     volumes:
