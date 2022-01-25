@@ -38,9 +38,12 @@ cd tmp/sqlmap-dev
 # remove old tests result
 rm ~/.local/share/sqlmap -rf
 # no waf
-./sqlmap.py -u 'http://localhost:10800/show.php?id=1&type=bXlzcWw=&title=DevOps+is+important'
+python3 ./sqlmap.py -u 'http://localhost:10800/show.php?id=1&type=bXlzcWw=&title=DevOps+is+important'
+rm ~/.local/share/sqlmap -rf
 # with waf
-./sqlmap.py -u 'http://localhost:10801/show.php?id=1&type=bXlzcWw=&title=DevOps+is+important'
+python3 ./sqlmap.py -u 'http://localhost:10801/show.php?id=1&type=bXlzcWw=&title=DevOps+is+important'
+rm ~/.local/share/sqlmap -rf
+
 ```
 
 ## XSS Check

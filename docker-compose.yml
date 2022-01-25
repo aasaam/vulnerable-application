@@ -33,6 +33,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./addon:/usr/local/openresty/nginx/addon:ro
+      - ./config/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
     ports:
       - 10801:80
       - 10802:443
